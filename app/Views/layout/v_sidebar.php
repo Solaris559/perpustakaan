@@ -1,5 +1,10 @@
 <!--begin::Sidebar-->
-<aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+
+<!-- sidebar bg bawaan admin lte -->
+<!-- <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark"> -->
+
+<!-- sidebar bg referensi dari fonnte -->
+<aside class="app-sidebar shadow" style="background-color:#1e293b;" data-bs-theme="dark">
     <!--begin::Sidebar Brand-->
     <div class="sidebar-brand"
         style="padding:65px 0 32px 0; min-height:130px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
@@ -64,8 +69,8 @@
             <!--begin::Sidebar Menu-->
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="navigation"
                 aria-label="Main navigation" data-accordion="false" id="navigation">
-                <li class="nav-item menu-open">
-                    <a href="<?= base_url('home/index') ?>" class="nav-link active">
+                <li class="nav-item">
+                    <a href="<?= base_url('home/index') ?>" class="nav-link ">
                         <i class="nav-icon bi bi-speedometer"></i>
                         <p>
                             Dashboard
@@ -89,125 +94,26 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-tree-fill"></i>
-                        <p>
-                            Transaksi
-                            <i class="nav-arrow bi bi-chevron-right"></i>
-                        </p>
+                    <a href="<?= base_url('home/peminjaman') ?>" class="nav-link">
+                        <i class="nav-icon bi bi-circle"></i>
+                        <p>Peminjaman</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?= base_url('home/peminjaman') ?>" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Peminjaman</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('home/pengembalian') ?>" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Pengembalian</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('home/denda') ?>" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Denda</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('home/buku') ?>" class="nav-link">
-                        <i class="nav-icon bi bi-pencil-square"></i>
-                        <p>
-                            Forms
-                        </p>
+                    <a href="<?= base_url('home/pengembalian') ?>" class="nav-link">
+                        <i class="nav-icon bi bi-circle"></i>
+                        <p>Pengembalian</p>
                     </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('home/denda') ?>" class="nav-link">
+                        <i class="nav-icon bi bi-cash"></i>
+                        <p>Denda</p>
+                    </a>
+                </li>
+                </li>
 
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-table"></i>
-                        <p>
-                            Tables
-                            <i class="nav-arrow bi bi-chevron-right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?= base_url('template/dist/tables/simple.html') ?>" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Simple Tables</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-header">EXAMPLES</li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-box-arrow-in-right"></i>
-                        <p>
-                            Auth
-                            <i class="nav-arrow bi bi-chevron-right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-box-arrow-in-right"></i>
-                                <p>
-                                    Version 1
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="<?= base_url('template/dist/examples/login.html') ?>" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Login</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= base_url('template/dist/examples/register.html') ?>" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Register</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-box-arrow-in-right"></i>
-                                <p>
-                                    Version 2
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="<?= base_url('template/dist/examples/login-v2.html') ?>" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Login</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= base_url('template/dist/examples/register-v2.html') ?>"
-                                        class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Register</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('template/dist/examples/lockscreen.html') ?>" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Lockscreen</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+
             </ul>
             <!--end::Sidebar Menu-->
         </nav>

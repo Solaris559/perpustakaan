@@ -4,7 +4,7 @@
     <!--begin::App Wrapper-->
     <div class="app-wrapper">
         <!--begin::Header-->
-        <nav class="app-header navbar navbar-expand bg-body">
+        <nav class="app-header navbar navbar-expand navbar-dark" style="background-color:#1e293b;">
             <!--begin::Container-->
             <div class="container-fluid">
                 <!--begin::Start Navbar Links-->
@@ -62,7 +62,7 @@
                                 See All Notifications
                             </a>
                         </div>
-                    </li> -->
+                    </li>
                     <!--end::Notifications Dropdown Menu-->
                     <!--begin::Fullscreen Toggle-->
                     <li class="nav-item">
@@ -75,46 +75,57 @@
                     <!--begin::User Menu Dropdown-->
                     <li class="nav-item dropdown user-menu">
                         <a href="#" class="nav-link dropdown-toggle d-flex align-items-center gap-2"
-                            data-bs-toggle="dropdown" style="min-width:160px;">
+                            data-bs-toggle="dropdown" style="min-width:100px;">
                             <img src="<?= base_url('template/dist/assets/img/Iqbal.jpg') ?>"
                                 class="user-image rounded-circle shadow border border-2 border-success" alt="User Image"
-                                style="width:36px;height:36px;object-fit:cover;" />
+                                style="width:36px;height:36px;object-fit:cover;position:relative; top:4px;" />
                             <span class="d-none d-md-inline fw-semibold text-success"
                                 style="font-size:1rem;"><?= session()->get('nama') ?></span>
-                            <span class="badge bg-success ms-1"
-                                style="font-size:0.8rem;"><?= session()->get('role') ?></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                            <!--begin::User Image-->
-                            <li class="user-header text-bg-primary">
+                            <!--begin::Custom User Dropdown-->
+                            <li class="dropdown-header text-center py-3" style="background:#fff;">
                                 <img src="<?= base_url('template/dist/assets/img/Iqbal.jpg') ?>"
-                                    class="rounded-circle shadow" alt="User Image" />
-                                <p>
+                                    class="rounded-circle shadow" alt="User Image"
+                                    style="width:64px;height:64px;object-fit:cover;">
+                                <div class="mt-2 mb-1" style="font-size:1.15rem;font-weight:600;">
                                     <?= session()->get('nama') ?>
-                                    <small> <?= session()->get('role') ?></small>
-                                </p>
-                            </li>
-                            <!--end::User Image-->
-                            <!--begin::Menu Body-->
-                            <li class="user-body">
-                                <!--begin::Row-->
-                                <div class="row">
-                                    <div class="col-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-4 text-center"><a href="#">Sales</a></div>
-                                    <div class="col-4 text-center"><a href="#">Friends</a></div>
+
                                 </div>
-                                <!--end::Row-->
+                                <div class="badge bg-dark ms-2" style="color:white;font-size:0.8rem;">
+                                    <?= session()->get('role') ?>
+                                </div>
                             </li>
-                            <!--end::Menu Body-->
-                            <!--begin::Menu Footer-->
-                            <li class="user-footer">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                <a href="<?= base_url('home/logout') ?>" class="btn btn-default btn-flat float-end">Sign
-                                    out</a>
+                            <li>
+                                <hr class="dropdown-divider" style="border-color:#e5e7eb;">
                             </li>
-                            <!--end::Menu Footer-->
+
+                            <li>
+                                <a href="#" class="dropdown-item d-flex align-items-center gap-2 py-2">
+                                    <i class="bi bi-gear" style="font-size:1.3rem;color:#374151;"></i>
+                                    <span style="font-size:1.08rem;color:#232b36;font-weight:500;">Account
+                                        Settings</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="dropdown-item d-flex align-items-center gap-2 py-2">
+                                    <i class="bi bi-life-preserver" style="font-size:1.3rem;color:#374151;"></i>
+                                    <span style="font-size:1.08rem;color:#232b36;font-weight:500;">Help Center</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <hr class="dropdown-divider" style="border-color:#e5e7eb;">
+                            </li>
+                            <li>
+                                <a href="<?= base_url('home/logout') ?>"
+                                    class="dropdown-item d-flex align-items-center gap-2 py-2">
+                                    <i class="bi bi-box-arrow-right" style="font-size:1.3rem;color:#ef4444;"></i>
+                                    <span style="font-size:1.08rem;color:#ef4444;font-weight:500;">Log Out</span>
+                                </a>
+                            </li>
+                            <!--end::Custom User Dropdown-->
                         </ul>
                     </li>
                     <!--end::User Menu Dropdown-->

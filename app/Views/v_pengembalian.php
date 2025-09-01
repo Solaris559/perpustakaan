@@ -1,28 +1,22 @@
 <!--begin::App Main-->
-<div class="app-flex-wrapper" style="display:flex;flex-direction:column;min-height:100vh;">
-    <main class="app-main" style="flex:1 0 auto;">
-    <!--begin::App Content Header-->
-    <div class="app-content-header">
-        <!--begin::Container-->
+
+<main class="app-main">
+    <div class="app-content-header mb-4">
         <div class="container-fluid">
-            <!--begin::Row-->
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-sm-6">
-                    <h3 class="mb-0"><?= $title ?></h3>
+                    <h3 class="mb-0 text-success" style="font-weight:700;"><i
+                            class="bi bi-journal-bookmark-fill me-2"></i><?= $title ?></h3>
                 </div>
                 <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-end">
+                    <ol class="breadcrumb float-sm-end bg-light p-2 rounded shadow-sm">
                         <li class="breadcrumb-item"><a href="<?= base_url('home/tambah_buku') ?>">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><?= $title ?></li>
                     </ol>
                 </div>
             </div>
-            <!--end::Row-->
         </div>
-        <!--end::Container-->
     </div>
-    <!--end::App Content Header-->
-    <!--begin::App Content-->
     <div class="app-content">
         <!--begin::Container-->
         <div class="container-fluid">

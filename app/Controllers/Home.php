@@ -127,6 +127,7 @@ class Home extends BaseController
             'nama' => $this->request->getPost('nama'),
             'no_anggota' => $this->request->getPost('no_anggota'),
             'kelas' => $this->request->getPost('kelas'),
+            'no_hp' => $this->request->getPost('no_hp'),
             'kode_qr' => $qrFilename,
         ];
 
@@ -137,23 +138,96 @@ class Home extends BaseController
     }
 
 
-    public function edit_anggota()
+    public function edit_anggota($id_anggota)
     {
+        $nama = $this->request->getPost('nama');
+        $no_anggota = $this->request->getPost('no_anggota');
+        $kelas = $this->request->getPost('kelas');
+
+        // Buat isi QR code
+        $qrContent = "Nama: $nama\nNo Anggota: $no_anggota\nKelas: $kelas";
+
+        // Buat QR Code dengan opsi langsung di konstruktor
+        $qrCode = new QrCode($qrContent);
+
+        $writer = new PngWriter();
+        $qrImage = $writer->write($qrCode);
+
+        // Simpan QR code ke file di folder public/template/dist/assets/qr_codes
+        $qrFilename = 'qr_' . uniqid() . '.png';
+        $qrPath = FCPATH . 'template/dist/assets/qr_codes/' . $qrFilename;
+        $qrImage->saveToFile($qrPath);
+
         $data = [
-            'title' => 'Edit Anggota',
-            'isi' => 'v_anggota',
+            'nama' => $this->request->getPost('nama'),
+            'no_anggota' => $this->request->getPost('no_anggota'),
+            'kelas' => $this->request->getPost('kelas'),
+            'no_hp' => $this->request->getPost('no_hp'),
+            'kode_qr' => $qrFilename,
         ];
-        return view('layout/v_wrapper', $data);
+
+        $this->AnggotaModel->updateAnggota($id_anggota, $data);
+
+        session()->setFlashdata('success', 'Data Anggota Berhasil Diedit');
+        return redirect()->to('/home/anggota');
     }
 
-    public function hapus_anggota()
+    public function hapus_anggota($id_anggota)
     {
-        $data = [
-            'title' => 'Hapus Anggota',
-            'isi' => 'v_anggota',
-        ];
-        return view('layout/v_wrapper', $data);
+        $this->AnggotaModel->deleteAnggota($id_anggota);
+
+        session()->setFlashdata('success', 'Data Anggota Berhasil Dihapus');
+        return redirect()->to('/home/anggota');
     }
+
+    public function cetak_kartu($id)
+    {
+        $anggota = $this->AnggotaModel->getById($id);
+        if (is_array($anggota)) {
+            $anggota = (object) $anggota;
+        }
+
+        $html = view('kartu_template', ['anggota' => $anggota]);
+
+        $mpdf = new \Mpdf\Mpdf([
+            'format' => [86, 54],
+            'margin_left' => 0,
+            'margin_right' => 0,
+            'margin_top' => 0,
+            'margin_bottom' => 0
+        ]);
+
+        $mpdf->WriteHTML($html);
+
+        // Output langsung ke browser (inline)
+        $mpdf->Output("Kartu_{$anggota->nama}.pdf", 'I');
+        exit;  // Penting agar skrip berhenti dan tidak mencetak apapun lagi
+    }
+
+
+
+    public function cetak_semua_kartu()
+    {
+        $anggota = $this->AnggotaModel->getAll();
+
+        $mpdf = new \Mpdf\Mpdf([
+            'format' => [86, 54],
+            'margin_left' => 0,
+            'margin_right' => 0,
+            'margin_top' => 0,
+            'margin_bottom' => 0
+        ]);
+
+        foreach ($anggota as $data) {
+            $html = view('kartu_template', ['anggota' => (object) $data]);
+            $mpdf->AddPage();
+            $mpdf->WriteHTML($html);
+        }
+
+        $mpdf->Output("Semua_Kartu_Anggota.pdf", 'I');
+    }
+
+
 
     // Buku methods
     // These methods handle the operations related to buku (books) such as viewing, adding, editing, and deleting books.
@@ -169,8 +243,19 @@ class Home extends BaseController
 
     public function tambah_buku()
     {
+        $fileSampul = $this->request->getFile('sampul');
+
+        if ($fileSampul && $fileSampul->isValid()) {
+            $namaFile = $fileSampul->getRandomName();
+            $fileSampul->move('template/dist/assets/covers', $namaFile);
+            $sampul = $namaFile;
+        } else {
+            // Kalau tidak upload, pakai default cover
+            $sampul = 'default-cover.png';
+        }
+
         $data = [
-            'sampul' => $this->request->getPost('sampul'),
+            'sampul' => $sampul,
             'judul_buku' => $this->request->getPost('judul_buku'),
             'pengarang' => $this->request->getPost('pengarang'),
             'penerbit' => $this->request->getPost('penerbit'),
@@ -191,22 +276,48 @@ class Home extends BaseController
         return redirect()->to('/home/buku');
     }
 
-    public function edit_buku()
+    public function edit_buku($id_buku)
     {
+        $fileSampul = $this->request->getFile('sampul');
+
+        if ($fileSampul && $fileSampul->isValid()) {
+            $namaFile = $fileSampul->getRandomName();
+            $fileSampul->move('template/dist/assets/covers', $namaFile);
+            $sampul = $namaFile;
+        } else {
+            // Kalau tidak upload, pakai default cover
+            $sampul = 'default-cover.png';
+        }
+
         $data = [
-            'title' => 'Edit Buku',
-            'isi' => 'v_buku',
+            'sampul' => $sampul,
+            'judul_buku' => $this->request->getPost('judul_buku'),
+            'pengarang' => $this->request->getPost('pengarang'),
+            'penerbit' => $this->request->getPost('penerbit'),
+            'kota' => $this->request->getPost('kota'),
+            'tahun_terbit' => $this->request->getPost('tahun_terbit'),
+            'jilid' => $this->request->getPost('jilid'),
+            'jumlah_buku' => $this->request->getPost('jumlah_buku'),
+            'harga_satuan' => $this->request->getPost('harga_satuan'),
+            'katalog' => $this->request->getPost('katalog'),
+            'jumlah_halaman' => $this->request->getPost('jumlah_halaman'),
+            'isbn' => $this->request->getPost('isbn'),
         ];
-        return view('layout/v_wrapper', $data);
+        // Insert data into buku table
+        $this->BukuModel->updateBuku($id_buku, $data);
+        // Set flashdata message for success
+        session()->setFlashdata('success', 'Data Buku Berhasil Diedit');
+        // Redirect to buku page after insertion
+        return redirect()->to('/home/buku');
     }
 
-    public function hapus_buku()
+    public function hapus_buku($id_buku)
     {
-        $data = [
-            'title' => 'Hapus Buku',
-            'isi' => 'v_buku',
-        ];
-        return view('layout/v_wrapper', $data);
+        $this->BukuModel->deleteBuku($id_buku);
+
+        session()->setFlashdata('success', 'Data Buku Berhasil Dihapus');
+        return redirect()->to('/home/buku');
+
     }
 
     // Peminjaman methods

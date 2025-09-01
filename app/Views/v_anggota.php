@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-end bg-light p-2 rounded shadow-sm">
-                        <li class="breadcrumb-item"><a href="<?= base_url('home/tambah_buku') ?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?= base_url('home/index') ?>">Dashboard</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><?= $title ?></li>
                     </ol>
                 </div>
@@ -27,6 +27,12 @@
                                 data-bs-target="#tambah">
                                 <i class="bi bi-plus-lg"></i> Tambah Data
                             </a>
+                            <a href="<?= base_url('home/cetak_semua_kartu') ?>" target="_blank"
+                                class="btn btn-info btn-sm mb-3 ms-2">
+                                <i class="bi bi-printer-fill"></i> Cetak Semua Kartu
+                            </a>
+
+
                             <!-- Modal Tambah Anggota -->
                             <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
@@ -55,6 +61,16 @@
                                                     <input type="text" class="form-control" id="kelas" name="kelas"
                                                         required>
                                                 </div>
+                                                <div class="mb-3">
+                                                    <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                                                    <input type="text" class="form-control" id="jenis_kelamin" name="jenis_kelamin"
+                                                        required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="no_hp" class="form-label">No. HP</label>
+                                                    <input type="text" class="form-control" id="no_hp" name="no_hp"
+                                                        required>
+                                                </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Batal</button>
@@ -66,16 +82,23 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php if (!empty(session()->getFlashdata('success'))) { ?>
+                                <div class="alert alert-success">
+                                    <?= session()->getFlashdata('success'); ?>
+                                </div>
+                            <?php } ?>
                             <div class="table-responsive">
                                 <table id="example" class="table table-striped table-bordered align-middle">
                                     <thead class="table-success">
                                         <tr>
-                                            <th>No</th>
-                                            <th>Nama</th>
-                                            <th>Nomor anggota</th>
-                                            <th>Kelas</th>
-                                            <th>QR Code</th>
-                                            <th>Aksi</th>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Nama</th>
+                                            <th class="text-center">Nomor anggota</th>
+                                            <th class="text-center">Kelas</th>
+                                            <th class="text-center">Jenis Kelamin</th>
+                                            <th class="text-center">No. HP</th>
+                                            <th class="text-center noExport">QR Code</th>
+                                            <th class="text-center noExport">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -85,6 +108,8 @@
                                                 <td><?= $data['nama'] ?></td>
                                                 <td><?= $data['no_anggota'] ?></td>
                                                 <td><?= $data['kelas'] ?></td>
+                                                <td><?= $data['jenis_kelamin'] ?></td>
+                                                <td><?= $data['no_hp'] ?></td>
                                                 <td>
                                                     <?php if (!empty($data['kode_qr'])): ?>
                                                         <img src="<?= base_url('template/dist/assets/qr_codes/' . $data['kode_qr']) ?>"
@@ -93,31 +118,38 @@
                                                         <span class="text-muted">-</span>
                                                     <?php endif; ?>
                                                 </td>
-                                                <td>
+                                                <td class="noExport">
                                                     <a href="#" class="btn btn-warning btn-sm me-1" data-bs-toggle="modal"
-                                                        data-bs-target="#edit<?= $data['id'] ?>"><i
+                                                        data-bs-target="#edit<?= $data['id_anggota'] ?>"><i
                                                             class="bi bi-pencil-square"></i> Edit</a>
-                                                    <a href="#" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i>
-                                                        Hapus</a>
+                                                    <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                                        data-bs-target="#hapus<?= $data['id_anggota'] ?>"><i
+                                                            class="bi bi-trash"></i>Hapus</a>
+                                                    <a href="<?= base_url('home/cetak_kartu/' . $data['id_anggota']) ?>"
+                                                        target="_blank" class="btn btn-info btn-sm">
+                                                        <i class="bi bi-printer-fill"></i> Cetak
+                                                    </a>
                                                 </td>
                                             </tr>
                                             <!-- Modal Edit Anggota -->
-                                            <div class="modal fade" id="edit<?= $data['id'] ?>" tabindex="-1"
-                                                aria-labelledby="editLabel<?= $data['id'] ?>" aria-hidden="true">
+                                            <div class="modal fade" id="edit<?= $data['id_anggota'] ?>" tabindex="-1"
+                                                aria-labelledby="editLabel<?= $data['id_anggota'] ?>" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header bg-success text-white">
-                                                            <h1 class="modal-title fs-5" id="editLabel<?= $data['id'] ?>"><i
+                                                            <h1 class="modal-title fs-5"
+                                                                id="editLabel<?= $data['id_anggota'] ?>"><i
                                                                     class="bi bi-person-badge-fill me-2"></i>Detail Anggota
                                                             </h1>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form action="<?= base_url('home/simpan_buku') ?>" method="post"
-                                                                enctype="multipart/form-data">
-                                                                <input type="hidden" name="id_peminjaman"
-                                                                    value="<?= $data['id'] ?>">
+                                                            <form
+                                                                action="<?= base_url('home/edit_anggota/' . $data['id_anggota']) ?>"
+                                                                method="post" enctype="multipart/form-data">
+                                                                <input type="hidden" name="id_anggota"
+                                                                    value="<?= $data['id_anggota'] ?>">
                                                                 <div class="mb-3">
                                                                     <label for="nama" class="form-label">Nama</label>
                                                                     <input type="text" class="form-control" name="nama"
@@ -135,6 +167,16 @@
                                                                     <input type="text" class="form-control" id="kelas"
                                                                         name="kelas" value="<?= $data['kelas'] ?>">
                                                                 </div>
+                                                                <div class="mb-3">
+                                                                    <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                                                                    <input type="text" class="form-control" id="jenis_kelamin"
+                                                                        name="jenis_kelamin" value="<?= $data['jenis_kelamin'] ?>">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="no_hp" class="form-label">No. HP</label>
+                                                                    <input type="text" class="form-control" id="no_hp"
+                                                                        name="no_hp" value="<?= $data['no_hp'] ?>">
+                                                                </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary"
                                                                         data-bs-dismiss="modal">Batal</button>
@@ -146,6 +188,43 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <!-- Modal Hapus Anggota -->
+                                            <div class="modal fade" id="hapus<?= $data['id_anggota'] ?>" tabindex="-1"
+                                                aria-labelledby="hapusLabel<?= $data['id_anggota'] ?>" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-scrollable">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-success text-white">
+                                                            <h1 class="modal-title fs-5"
+                                                                id="hapusLabel<?= $data['id_anggota'] ?>">
+                                                                <i class="bi bi-person-badge-fill me-2"></i>Hapus Data
+                                                                <?= $data['nama'] ?>
+                                                            </h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Apakah Anda yakin ingin menghapus data anggota
+                                                                <strong><?= $data['nama'] ?></strong>?
+                                                            </p>
+
+                                                            <form
+                                                                action="<?= base_url('home/hapus_anggota/' . $data['id_anggota']) ?>"
+                                                                method="post">
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Batal</button>
+                                                                    <button type="submit" class="btn btn-danger">
+                                                                        <i class="bi bi-trash me-1"></i>Hapus
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>

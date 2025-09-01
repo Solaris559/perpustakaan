@@ -15,6 +15,7 @@
         "ext-mbstring": "*",
         "endroid/qr-code": "^6.0",
         "laminas/laminas-escaper": "^2.17",
+        "mpdf/mpdf": "^8.2",
         "psr/log": "^3.0"
     },
     "require-dev": {

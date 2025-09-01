@@ -5,36 +5,44 @@ use CodeIgniter\Model;
 
 class AnggotaModel extends Model
 {
-    protected $table = 'anggota';     // nama tabel
-    protected $primaryKey = 'id';      // primary key tabel
+    protected $table = 'anggota';             // nama tabel
+    protected $primaryKey = 'id_anggota';     // primary key tabel sesuai DB
+    protected $allowedFields = ['nama', 'no_anggota', 'kelas', 'no_hp', 'kode_qr'];
 
-    // Kolom-kolom yang diizinkan untuk diisi melalui insert/update
-    protected $allowedFields = ['nama', 'no_anggota', 'kelas', 'kode_qr'];
     public function getAnggota()
     {
-        // return $this->findAll();
-        return $this->db->table('anggota')->get()->getResultArray();
+        return $this->findAll();  // cukup findAll() saja sudah otomatis pakai primary key
     }
 
     public function insertAnggota($data)
     {
-        return $this->db->table("anggota")->insert($data);
+        return $this->insert($data);  // pakai method model bawaan
     }
 
-    public function updateAnggota($id, $data)
+    public function updateAnggota($id_anggota, $data)
     {
-        return $this->db->table("anggota")->where("id", $id)->update($data);
+        return $this->update($id_anggota, $data);
     }
 
-    public function deleteAnggota($id)
+    public function deleteAnggota($id_anggota)
     {
-        return $this->db->table("anggota")->where("id", $id)->delete();
+        return $this->delete($id_anggota);
     }
 
     public function countAnggota()
     {
-        // This method counts the number of anggota (members) in the database.
-        // It returns the count as an integer.
-        return $this->db->table('anggota')->countAll();
+        return $this->countAll();
+    }
+
+    // Tambahan fungsi untuk ambil data per ID (dipakai di controller)
+    public function getById($id_anggota)
+    {
+        return $this->find($id_anggota);
+    }
+
+    // Tambahan fungsi ambil semua data sebagai array (kalau diperlukan)
+    public function getAll()
+    {
+        return $this->findAll();
     }
 }

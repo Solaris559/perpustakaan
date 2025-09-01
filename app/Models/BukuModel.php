@@ -15,14 +15,14 @@ class BukuModel extends Model
         return $this->db->table("buku")->insert($data);
     }
 
-    public function updateBuku($id, $data)
+    public function updateBuku($id_buku, $data)
     {
-        return $this->db->table("buku")->where("id", $id)->update($data);
+        return $this->db->table("buku")->where("id_buku", $id_buku)->update($data);
     }
 
-    public function deleteBuku($id)
+    public function deleteBuku($id_buku)
     {
-        return $this->db->table("buku")->where("id", $id)->delete();
+        return $this->db->table("buku")->where("id_buku", $id_buku)->delete();
     }
 
     public function countBuku()
