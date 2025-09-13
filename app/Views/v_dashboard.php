@@ -87,7 +87,7 @@
                     <div class="small-box text-bg-danger">
                         <div class="inner">
                             <h3><?= $jumlah_denda ?></h3>
-                            <p>Denda</p>
+                            <p>Daftar Denda</p>
                         </div>
                         <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -108,20 +108,104 @@
                 <!--end::Col-->
             </div>
 
-            <!-- Chart row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card mb-4">
+            <!-- Charts -->
+            <div class="row mt-5">
+                <!-- Grafik Peminjaman & Pengembalian -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Sales Value</h3>
+                            <h5 class="card-title">Peminjaman dan Pengembalian per Bulan</h5>
                         </div>
                         <div class="card-body">
-                            <div id="revenue-chart"></div>
+                            <canvas id="peminjamanChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grafik Anggota per Kelas -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Jumlah Anggota per Kelas</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="anggotaKelasChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- end row -->
         </div>
-    </div>
 </main>
+
+<!-- Chart.js Script -->
+<!-- Load Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const bulanLabels = <?= json_encode($bulan) ?>;
+    const dataPeminjaman = <?= json_encode($peminjaman_per_bulan) ?>;
+    const dataPengembalian = <?= json_encode($pengembalian_per_bulan) ?>;
+
+    const kelasLabels = <?= json_encode($kelas) ?>;
+    const dataAnggotaKelas = <?= json_encode(array_values($anggota_per_kelas)) ?>;
+
+    // Peminjaman & Pengembalian Chart
+    const ctx1 = document.getElementById('peminjamanChart').getContext('2d');
+    new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: bulanLabels,
+            datasets: [
+                {
+                    label: 'Peminjaman',
+                    data: dataPeminjaman,
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)'
+                },
+                {
+                    label: 'Pengembalian',
+                    data: dataPengembalian,
+                    backgroundColor: 'rgba(255, 206, 86, 0.7)'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // Anggota per Kelas Chart
+    const ctx2 = document.getElementById('anggotaKelasChart').getContext('2d');
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: kelasLabels,
+            datasets: [{
+                label: 'Jumlah Anggota',
+                data: dataAnggotaKelas,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',   // 7A
+                    'rgba(54, 162, 235, 0.7)',   // 7B
+                    'rgba(255, 206, 86, 0.7)',   // 7C
+                    'rgba(75, 192, 192, 0.7)',   // 8A
+                    'rgba(153, 102, 255, 0.7)',  // 8B
+                    'rgba(255, 159, 64, 0.7)',   // 8C
+                    'rgba(199, 199, 199, 0.7)',  // 9A
+                    'rgba(83, 102, 255, 0.7)',   // 9B
+                    'rgba(60, 179, 113, 0.7)'    // 9
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>

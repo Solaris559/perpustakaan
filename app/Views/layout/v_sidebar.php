@@ -95,13 +95,13 @@
                 </li>
                 <li class="nav-item">
                     <a href="<?= base_url('home/peminjaman') ?>" class="nav-link">
-                        <i class="nav-icon bi bi-circle"></i>
+                        <i class="nav-icon bi bi-arrow-down-circle"></i>
                         <p>Peminjaman</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="<?= base_url('home/pengembalian') ?>" class="nav-link">
-                        <i class="nav-icon bi bi-circle"></i>
+                        <i class="nav-icon bi bi-arrow-up-circle"></i>
                         <p>Pengembalian</p>
                     </a>
                 </li>
@@ -109,6 +109,13 @@
                     <a href="<?= base_url('home/denda') ?>" class="nav-link">
                         <i class="nav-icon bi bi-cash"></i>
                         <p>Denda</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('home/pengunjung') ?>" class="nav-link">
+                        <i class="nav-icon bi bi-people"></i>
+                        <p>Pengunjung</p>
+
                     </a>
                 </li>
                 </li>

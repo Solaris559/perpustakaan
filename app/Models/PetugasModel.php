@@ -6,16 +6,11 @@ use CodeIgniter\Model;
 class PetugasModel extends Model
 {
     protected $table = "petugas";
-    protected $primaryKey = "id";
+    protected $primaryKey = "id_petugas";
+
+    protected $allowedFields = ['username', 'password', 'nama', 'role', 'foto'];
     public function cekLogin($username, $password)
     {
-        // This method retrieves a petugas (staff) record based on username and password.
-        // It returns the first matching record as an associative array.
-        // If no record is found, it returns null.
-        // return $this->db->table("petugas")
-        //     ->where(array('username' => $username, 'password' =>($password)))
-        //     ->get()
-        //     ->getRowArray();
 
         $user = $this->db->table('petugas')
             ->where('username', $username)
@@ -28,5 +23,10 @@ class PetugasModel extends Model
             return null;
         }
 
+    }
+
+    public function updatePetugas($id_petugas, $data)
+    {
+        return $this->db->table("buku")->where("id_petugas", $id_petugas)->update($data);
     }
 }

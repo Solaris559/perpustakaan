@@ -52,8 +52,17 @@
     <!-- jsvectormap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css"
         integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.bootstrap5.min.css">
+
+
+
+
     <link rel="stylesheet" href="<?= base_url('template/dist/css/datatables.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('template/dist/css/custom.css') ?>">
+    <!-- 
+    <link href="https://cdn.datatables.net/searchpanes/2.2.0/css/searchPanes.dataTables.min.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/dataTables.searchPanes.min.js"></script> -->
+
 
 
 

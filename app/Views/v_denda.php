@@ -1,132 +1,80 @@
 <!--begin::App Main-->
+
 <main class="app-main">
-    <!--begin::App Content Header-->
-    <div class="app-content-header">
-        <!--begin::Container-->
+    <div class="app-content-header mb-4">
         <div class="container-fluid">
-            <!--begin::Row-->
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-sm-6">
-                    <h3 class="mb-0"><?= $title ?></h3>
+                    <h3 class="mb-0 text-success" style="font-weight:700;">
+                        <i class="bi bi-journal-bookmark-fill me-2"></i><?= $title ?>
+                    </h3>
                 </div>
                 <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-end">
+                    <ol class="breadcrumb float-sm-end bg-light p-2 rounded shadow-sm">
                         <li class="breadcrumb-item"><a href="<?= base_url('home/tambah_buku') ?>">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Simple Tables</li>
+                        <li class="breadcrumb-item active" aria-current="page"><?= $title ?></li>
                     </ol>
                 </div>
             </div>
-            <!--end::Row-->
         </div>
-        <!--end::Container-->
     </div>
-    <!--end::App Content Header-->
-    <!--begin::App Content-->
+
     <div class="app-content">
-        <!--begin::Container-->
         <div class="container-fluid">
-            <!--begin::Row-->
             <div class="row">
                 <div class="col-md-12">
                     <div class="card mb-4">
-                        <div class="card-header">
-                            <h3 class="card-title">Bordered Table</h3>
-                        </div>
-                        <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 10px">#</th>
-                                        <th>Sampul Buku</th>
-                                        <th>Judul Buku</th>
-                                        <th>Pengarang</th>
-                                        <th>Penerbit</th>
-                                        <th>Tahun Terbit</th>
-                                        <th>Jumlah Buku</th>
-                                        <th>Jumlah Halaman</th>
-                                        <th style="width: 40px">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="align-middle">
-                                        <td>1.</td>
-                                        <td>Update software</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge text-bg-danger">55%</span></td>
-                                        <td><span class="badge text-bg-danger">56%</span></td>
-                                        <td><span class="badge text-bg-danger">57%</span></td>
-                                        <td><span class="badge text-bg-danger">58%</span></td>
-                                        <td><span class="badge text-bg-danger">59%</span></td>
-                                        <td><Button class="btn btn-primary btn-sm">Detail</Button></td>
-                                    </tr>
-                                    <tr class="align-middle">
-                                        <td>2.</td>
-                                        <td>Clean database</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar text-bg-warning" style="width: 70%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge text-bg-warning">70%</span></td>
-                                    </tr>
-                                    <tr class="align-middle">
-                                        <td>3.</td>
-                                        <td>Cron job running</td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar text-bg-primary" style="width: 30%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge text-bg-primary">30%</span></td>
-                                    </tr>
-                                    <tr class="align-middle">
-                                        <td>4.</td>
-                                        <td>Fix and squish bugs</td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar text-bg-success" style="width: 90%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge text-bg-success">90%</span></td>
-                                    </tr>
-                                    <tr class="align-middle">
-                                        <td>5.</td>
-                                        <td>Fix and squish bugs</td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar text-bg-success" style="width: 90%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge text-bg-success">90%</span></td>
-                                    </tr>
-                                    <tr class="align-middle">
-                                        <td>6.</td>
-                                        <td>Fix and squish bugs</td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar text-bg-success" style="width: 90%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge text-bg-success">90%</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama</th>
+                                            <th>No Anggota</th>
+                                            <th>Nilai Ganti</th>
+                                            <th>Status Denda</th>
+                                            <th>Tanggal Pelunasan</th>
+                                            <th>Keterangan</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php if (!empty($denda)): ?>
+                                            <?php $no = 1; ?>
+                                            <?php foreach ($denda as $item): ?>
+                                                <tr>
+                                                    <td><?= $no++ ?></td>
+                                                    <td><?= esc($item['nama']) ?></td>
+                                                    <td><?= esc($item['no_anggota']) ?></td>
+                                                    <td><?= esc($item['jumlah_denda']) ?></td>
+                                                    <td><?= esc($item['status_denda']) ?></td>
+                                                    <td><?= $item['tanggal_pembayaran'] ? esc($item['tanggal_pembayaran']) : '-' ?>
+                                                    </td>
+                                                    <td><?= esc($item['keterangan']) ?></td>
+                                                    <td>
+                                                        <form action="<?= base_url('home/updateStatus/' . $item['id_denda']) ?>"
+                                                            method="post">
+                                                            <select name="status_denda" onchange="this.form.submit()">
+                                                                <option value="belum lunas" <?= $item['status_denda'] == 'belum lunas' ? 'selected' : '' ?>>Belum Lunas</option>
+                                                                <option value="lunas" <?= $item['status_denda'] == 'lunas' ? 'selected' : '' ?>>Lunas</option>
+                                                            </select>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <tr>
+                                                <td colspan="8" class="text-center">Data Denda Tidak Ditemukan</td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    </tbody>
+
+                                </table>
+
+                            </div>
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer clearfix">
-                            <ul class="pagination pagination-sm m-0 float-end">
-                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                            </ul>
-                        </div>
                     </div>
                     <!-- /.card -->
                 </div>
@@ -138,4 +86,6 @@
     </div>
     <!--end::App Content-->
 </main>
+
 <!--end::App Main-->
+</div>

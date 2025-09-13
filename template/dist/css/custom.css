@@ -1,15 +1,22 @@
+/* Contoh CSS global untuk atur tinggi halaman supaya tidak ada space kosong */
 html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.app-main {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* isi seluruh tinggi layar */
+.main-container {
+  min-height: 100vh; /* 100% viewport height */
+  display: flex;
+  flex-direction: column;
 }
 
-.app-content {
-    flex-grow: 1; /* biar isi konten ambil sisa tinggi */
+.app-sidebar {
+  background-color: #1e293b;
+  height: 100vh;
+  width: 250px; /* sesuaikan */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }

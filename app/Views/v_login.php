@@ -1,10 +1,28 @@
+<?php
+$blockStart = session()->get('block_time_start');
+$blockTime = 0;
+
+// Cek apakah blokir sudah habis
+if ($blockStart) {
+    $elapsed = time() - $blockStart;
+    if ($elapsed >= 30) {
+        session()->remove('login_attempts');
+        session()->remove('last_attempt_time');
+        session()->remove('block_time_start');
+    } else {
+        $blockTime = 30 - $elapsed;
+    }
+}
+?>
+
 <!doctype html>
 <html lang="en">
 <!--begin::Head-->
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AdminLTE 4 | Login Page v2</title>
+    <title>Perpustakaan | MTSN 03 Kapuas Hulu</title>
+    <link rel="icon" href="<?= base_url('template/dist/assets/img/logo_mtsn03.png') ?>" type="image/png" />
     <!--begin::Accessibility Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <meta name="color-scheme" content="light dark" />
@@ -12,7 +30,7 @@
     <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
     <!--end::Accessibility Meta Tags-->
     <!--begin::Primary Meta Tags-->
-    <meta name="title" content="AdminLTE 4 | Login Page v2" />
+    <meta name="title" content="Perpustakaan | MTSN 03 Kapuas Hulu" />
     <meta name="author" content="ColorlibHQ" />
     <meta name="description"
         content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS. Fully accessible with WCAG 2.1 AA compliance." />
@@ -66,11 +84,13 @@
                     </div>
                 <?php endif; ?>
 
-                <?php if (!empty(session()->getFlashdata('gagal'))) { ?>
-                    <div class="alert alert-warning">
-                        <?php echo session()->getFlashdata('gagal'); ?>
+                <?php if (!empty(session()->getFlashdata('gagal')) && $blockTime == 0): ?>
+                    <div class="alert alert-danger">
+                        <?= session()->getFlashdata('gagal'); ?>
                     </div>
-                <?php } ?>
+                <?php endif; ?>
+
+
 
                 <?php echo form_open('home/cek_login') ?>
                 <div class="mb-3">
@@ -131,6 +151,38 @@
     </script>
     <!--end::OverlayScrollbars Configure-->
     <!--end::Script-->
+
+    <!-- Timer Dinamis -->
+    <script>
+        let blockTime = <?= $blockTime ?>;
+
+        if (blockTime > 0) {
+            const inputs = document.querySelectorAll('input, button');
+            inputs.forEach(el => el.disabled = true);
+
+            const form = document.querySelector('form');
+            const countdownMsg = document.createElement('div');
+            countdownMsg.style.color = 'red';
+            countdownMsg.style.fontWeight = 'bold';
+            countdownMsg.style.marginBottom = '15px';
+            countdownMsg.style.textAlign = 'center';
+            form.prepend(countdownMsg);
+
+            function updateTimer() {
+                countdownMsg.textContent = `⏳ Terlalu banyak percobaan login yang gagal. Silakan coba lagi dalam ${blockTime} detik.`;
+                blockTime--;
+
+                if (blockTime < 0) {
+                    inputs.forEach(el => el.disabled = false);
+                    countdownMsg.remove();
+                    clearInterval(timerInterval);
+                }
+            }
+
+            updateTimer();
+            const timerInterval = setInterval(updateTimer, 1000);
+        }
+    </script>
 </body>
 <!--end::Body-->
 

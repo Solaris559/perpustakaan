@@ -1,11 +1,12 @@
 <footer class="app-footer">
     <!--begin::To the end-->
-    <div class="float-end d-none d-sm-inline">Anything you want</div>
+    <!-- <div class="float-end d-none d-sm-inline">Anything you want</div> -->
     <!--end::To the end-->
     <!--begin::Copyright-->
     <strong>
-        Copyright &copy; 2014-2025&nbsp;
-        <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+        Copyright &copy; <?= date('Y') ?>&nbsp;
+        <a href="https://www.instagram.com/mtsn03kapuashulu?igsh=MXgxZm1ua3gxMnN5Zg=="
+            class="text-decoration-none">Perpustakaan MTsN 03 Kapuas Hulu</a>.
     </strong>
     All rights reserved.
     <!--end::Copyright-->

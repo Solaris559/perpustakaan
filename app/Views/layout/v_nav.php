@@ -76,7 +76,7 @@
                     <li class="nav-item dropdown user-menu">
                         <a href="#" class="nav-link dropdown-toggle d-flex align-items-center gap-2"
                             data-bs-toggle="dropdown" style="min-width:100px;">
-                            <img src="<?= base_url('template/dist/assets/img/Iqbal.jpg') ?>"
+                            <img src="<?= base_url('template/dist/assets/img/' . session()->get('foto')) ?>"
                                 class="user-image rounded-circle shadow border border-2 border-success" alt="User Image"
                                 style="width:36px;height:36px;object-fit:cover;position:relative; top:4px;" />
                             <span class="d-none d-md-inline fw-semibold text-success"
@@ -85,12 +85,11 @@
                         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                             <!--begin::Custom User Dropdown-->
                             <li class="dropdown-header text-center py-3" style="background:#fff;">
-                                <img src="<?= base_url('template/dist/assets/img/Iqbal.jpg') ?>"
+                                <img src="<?= base_url('template/dist/assets/img/' . session()->get('foto')) ?>"
                                     class="rounded-circle shadow" alt="User Image"
                                     style="width:64px;height:64px;object-fit:cover;">
                                 <div class="mt-2 mb-1" style="font-size:1.15rem;font-weight:600;">
                                     <?= session()->get('nama') ?>
-
                                 </div>
                                 <div class="badge bg-dark ms-2" style="color:white;font-size:0.8rem;">
                                     <?= session()->get('role') ?>
@@ -101,7 +100,8 @@
                             </li>
 
                             <li>
-                                <a href="#" class="dropdown-item d-flex align-items-center gap-2 py-2">
+                                <a href="#" id="btnAccountSettings"
+                                    class="dropdown-item d-flex align-items-center gap-2 py-2">
                                     <i class="bi bi-gear" style="font-size:1.3rem;color:#374151;"></i>
                                     <span style="font-size:1.08rem;color:#232b36;font-weight:500;">Account
                                         Settings</span>
@@ -109,7 +109,8 @@
                             </li>
 
                             <li>
-                                <a href="#" class="dropdown-item d-flex align-items-center gap-2 py-2">
+                                <a href="#" id="btnHelpCenter"
+                                    class="dropdown-item d-flex align-items-center gap-2 py-2">
                                     <i class="bi bi-life-preserver" style="font-size:1.3rem;color:#374151;"></i>
                                     <span style="font-size:1.08rem;color:#232b36;font-weight:500;">Help Center</span>
                                 </a>
@@ -135,3 +136,102 @@
             <!--end::Container-->
         </nav>
         <!--end::Header-->
+
+        <!-- Modal Edit Petugas -->
+        <div class="modal fade" id="modalEditPetugas" tabindex="-1" aria-labelledby="modalEditPetugasLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <form action="<?= base_url('home/edit_petugas/' . session()->get('id_petugas')) ?>" method="post"
+                    enctype="multipart/form-data">
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalEditPetugasLabel">Edit Profile</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3 text-center">
+                                <img src="<?= base_url('template/dist/assets/img/' . session()->get('foto')) ?>"
+                                    id="previewFoto" alt="Foto Profil" class="rounded-circle shadow"
+                                    style="width:100px;height:100px;object-fit:cover;">
+                            </div>
+                            <div class="mb-3">
+                                <label for="foto" class="form-label">Foto Profil</label>
+                                <input type="file" class="form-control" id="foto" name="foto" accept="image/*"
+                                    onchange="previewImage(event)">
+                            </div>
+                            <div class="mb-3">
+                                <label for="nama" class="form-label">Nama</label>
+                                <input type="text" class="form-control" id="nama" name="nama"
+                                    value="<?= session()->get('nama') ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username"
+                                    value="<?= session()->get('username') ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password <small class="text-muted">(isi
+                                        jika
+                                        ingin ganti password)</small></label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="Password baru">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Help Center -->
+        <div class="modal fade" id="modalHelpCenter" tabindex="-1" aria-labelledby="modalHelpCenterLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalHelpCenterLabel">Help Center</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Jika Anda mengalami masalah dengan website, silakan hubungi:</p>
+                        <ul>
+                            <li><strong>No. HP:</strong> +62 812-3456-7890</li>
+                            <li><strong>Email:</strong> support@website.com</li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Script -->
+        <script>
+            function previewImage(event) {
+                const input = event.target;
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.getElementById('previewFoto').src = e.target.result;
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            document.getElementById('btnAccountSettings').addEventListener('click', function (e) {
+                e.preventDefault();
+                var myModal = new bootstrap.Modal(document.getElementById('modalEditPetugas'));
+                myModal.show();
+            });
+
+            document.getElementById('btnHelpCenter').addEventListener('click', function (e) {
+                e.preventDefault();
+                var helpModal = new bootstrap.Modal(document.getElementById('modalHelpCenter'));
+                helpModal.show();
+            });
+        </script>

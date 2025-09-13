@@ -27,11 +27,10 @@
                                 data-bs-target="#tambah">
                                 <i class="bi bi-plus-lg"></i> Tambah Data
                             </a>
-                            <a href="<?= base_url('home/cetak_semua_kartu') ?>" target="_blank"
-                                class="btn btn-info btn-sm mb-3 ms-2">
-                                <i class="bi bi-printer-fill"></i> Cetak Semua Kartu
+                            <a href="<?= base_url('home/naikKelas') ?>" class="btn btn-warning btn-sm mb-3 ms-2"
+                                onclick="return confirm('Yakin ingin naikkan kelas semua anggota dan hapus data yang sudah lulus?')">
+                                <i class="bi bi-arrow-up-circle"></i> Naikkan Kelas Semua Anggota
                             </a>
-
 
                             <!-- Modal Tambah Anggota -->
                             <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -53,18 +52,35 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="no_anggota" class="form-label">Nomor Anggota</label>
-                                                    <input type="number" class="form-control" id="no_anggota"
-                                                        name="no_anggota" required>
+                                                    <!-- <input type="number" class="form-control" id="no_anggota"
+                                                        name="no_anggota" required> -->
+                                                    <input type="number" class="form-control" name="no_anggota"
+                                                        value="<?= esc($no_anggota) ?>">
+
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="kelas" class="form-label">Kelas</label>
-                                                    <input type="text" class="form-control" id="kelas" name="kelas"
-                                                        required>
+                                                    <select class="form-select" id="kelas" name="kelas" required>
+                                                        <option value="">-- Pilih Kelas --</option>
+                                                        <option value="7A">7A</option>
+                                                        <option value="7B">7B</option>
+                                                        <option value="7C">7C</option>
+                                                        <option value="8A">8A</option>
+                                                        <option value="8B">8B</option>
+                                                        <option value="8C">8C</option>
+                                                        <option value="9A">9A</option>
+                                                        <option value="9B">9B</option>
+                                                        <option value="9C">9C</option>
+                                                    </select>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
-                                                    <input type="text" class="form-control" id="jenis_kelamin" name="jenis_kelamin"
+                                                    <select class="form-select" id="jenis_kelamin" name="jenis_kelamin"
                                                         required>
+                                                        <option value="">-- Pilih jenis_kelamin --</option>
+                                                        <option value="laki-laki">laki-laki</option>
+                                                        <option value="perempuan">perempuan</option>
+                                                    </select>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="no_hp" class="form-label">No. HP</label>
@@ -164,13 +180,31 @@
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label for="kelas" class="form-label">Kelas</label>
-                                                                    <input type="text" class="form-control" id="kelas"
-                                                                        name="kelas" value="<?= $data['kelas'] ?>">
+                                                                    <select class="form-select" id="kelas" name="kelas"
+                                                                        required>
+                                                                        <option value="7A" <?= $data['kelas'] == '7A' ? 'selected' : '' ?>>7A</option>
+                                                                        <option value="7B" <?= $data['kelas'] == '7B' ? 'selected' : '' ?>>7B</option>
+                                                                        <option value="7C" <?= $data['kelas'] == '7C' ? 'selected' : '' ?>>7C</option>
+                                                                        <option value="8A" <?= $data['kelas'] == '8A' ? 'selected' : '' ?>>8A</option>
+                                                                        <option value="8B" <?= $data['kelas'] == '8B' ? 'selected' : '' ?>>8B</option>
+                                                                        <option value="8C" <?= $data['kelas'] == '8C' ? 'selected' : '' ?>>8C</option>
+                                                                        <option value="9A" <?= $data['kelas'] == '9A' ? 'selected' : '' ?>>9A</option>
+                                                                        <option value="9B" <?= $data['kelas'] == '9B' ? 'selected' : '' ?>>9B</option>
+                                                                        <option value="9C" <?= $data['kelas'] == '9C' ? 'selected' : '' ?>>9C</option>
+                                                                    </select>
+
                                                                 </div>
                                                                 <div class="mb-3">
-                                                                    <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
-                                                                    <input type="text" class="form-control" id="jenis_kelamin"
-                                                                        name="jenis_kelamin" value="<?= $data['jenis_kelamin'] ?>">
+                                                                    <label for="jenis_kelamin" class="form-label">Jenis
+                                                                        Kelamin</label>
+                                                                    <select class="form-select" id="jenis_kelamin"
+                                                                        name="jenis_kelamin" required>
+                                                                        <option value="laki-laki"
+                                                                            <?= $data['jenis_kelamin'] == 'Laki-Laki' ? 'selected' : '' ?>>Laki-laki</option>
+                                                                        <option value="perempuan"
+                                                                            <?= $data['jenis_kelamin'] == 'Perempuan' ? 'selected' : '' ?>>Perempuan</option>
+                                                                    </select>
+
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label for="no_hp" class="form-label">No. HP</label>

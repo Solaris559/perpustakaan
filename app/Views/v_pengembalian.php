@@ -43,19 +43,40 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Tiger Nixon</td>
-                                            <td>001</td>
-                                            <td>Suci Dalam Gelas</td>
-                                            <td>1</td>
-                                            <td>17-8-2025</td>
-                                            <td>7</td>
-                                            <td>21-8-2025</td>
-                                            <td>Selesai</td>
-                                            <td>Tidak Ada</td>
-                                        </tr>
+                                        <?php $no = 1; ?>
+                                        <?php if (!empty($pengembalian)): ?>
+                                            <?php foreach ($pengembalian as $item): ?>
+                                                <tr>
+                                                    <td><?= $no++ ?></td>
+                                                    <td><?= esc($item['nama']) ?></td>
+                                                    <td><?= esc($item['no_anggota']) ?></td>
+                                                    <td><?= esc($item['judul_buku']) ?></td>
+                                                    <td><?= esc($item['jumlah_buku']) ?></td>
+                                                    <td><?= date('d-m-Y', strtotime($item['tgl_peminjaman'])) ?></td>
+                                                    <td><?= date('d-m-Y', strtotime($item['batas_waktu'])) ?></td>
+                                                    <td><?= date('d-m-Y', strtotime($item['tanggal_pengembalian'])) ?></td>
+                                                    <td><?= esc($item['status']) ?></td>
+                                                    <td>
+                                                        <?php
+                                                        if ($item['nilai_ganti']) {
+                                                            echo esc($item['nilai_ganti']);
+                                                        } elseif ($item['jumlah_denda']) {
+                                                            echo esc($item['jumlah_denda']);
+                                                        } else {
+                                                            echo '-';
+                                                        }
+                                                        ?>
+                                                    </td>
+
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <tr>
+                                                <td colspan="10" class="text-center">Data Pengembalian Tidak Ditemukan</td>
+                                            </tr>
+                                        <?php endif; ?>
                                     </tbody>
+
                                 </table>
                             </div>
                         </div>
