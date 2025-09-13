@@ -393,9 +393,4 @@
                 </div>
         </div>
 </main>
-
-</div>
-<!-- /.card-body -->
-</div>
-</main>
 <!--end::App Main-->

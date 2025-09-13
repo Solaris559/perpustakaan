@@ -27,7 +27,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered">
-                                    <thead>
+                                    <thead class="table-success">
                                         <tr>
                                             <th>No</th>
                                             <th>Nama</th>
@@ -86,6 +86,4 @@
     </div>
     <!--end::App Content-->
 </main>
-
 <!--end::App Main-->
-</div>

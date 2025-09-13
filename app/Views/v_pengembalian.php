@@ -26,8 +26,8 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="example" class="table table-striped table-bordered">
-                                    <thead>
+                                <table id="PengembalianTable" class="table table-striped table-bordered">
+                                    <thead class="table-success">
                                         <tr>
                                             <th>No</th>
                                             <th>Nama</th>
@@ -73,6 +73,7 @@
                                         <?php else: ?>
                                             <tr>
                                                 <td colspan="10" class="text-center">Data Pengembalian Tidak Ditemukan</td>
+
                                             </tr>
                                         <?php endif; ?>
                                     </tbody>
@@ -93,4 +94,3 @@
     <!--end::App Content-->
 </main>
 <!--end::App Main-->
-</div>
