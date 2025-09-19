@@ -78,8 +78,8 @@
                                                     <select class="form-select" id="jenis_kelamin" name="jenis_kelamin"
                                                         required>
                                                         <option value="">-- Pilih jenis_kelamin --</option>
-                                                        <option value="laki-laki">laki-laki</option>
-                                                        <option value="perempuan">perempuan</option>
+                                                        <option value="laki-laki">Laki-Laki</option>
+                                                        <option value="perempuan">Perempuan</option>
                                                     </select>
                                                 </div>
                                                 <div class="mb-3">
@@ -126,10 +126,13 @@
                                                 <td><?= $data['kelas'] ?></td>
                                                 <td><?= $data['jenis_kelamin'] ?></td>
                                                 <td><?= $data['no_hp'] ?></td>
-                                                <td>
+                                                <td class="text-center noExport">
                                                     <?php if (!empty($data['kode_qr'])): ?>
                                                         <img src="<?= base_url('template/dist/assets/qr_codes/' . $data['kode_qr']) ?>"
-                                                            width="80" class="border rounded shadow-sm">
+                                                            alt="QR Code" class="img-thumbnail qr-code-thumbnail"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#qrModal<?= $data['id_anggota'] ?>"
+                                                            style="cursor:pointer; width: 80px;">
                                                     <?php else: ?>
                                                         <span class="text-muted">-</span>
                                                     <?php endif; ?>
@@ -258,6 +261,21 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <!-- Modal Zoom QR Code -->
+                                            <div class="modal fade" id="qrModal<?= $data['id_anggota'] ?>" tabindex="-1"
+                                                aria-labelledby="qrModalLabel<?= $data['id_anggota'] ?>" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-body text-center">
+                                                            <img src="<?= base_url('template/dist/assets/qr_codes/' . $data['kode_qr']) ?>"
+                                                                alt="QR Code Besar" class="img-fluid"
+                                                                style="max-width: 100%;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
 
                                         <?php endforeach; ?>
                                     </tbody>

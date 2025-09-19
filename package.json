@@ -1,0 +1,26 @@
+{
+  "name": "ci4",
+  "version": "1.0.0",
+  "description": "CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure. More information can be found at the [official site](https://codeigniter.com).",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Solaris559/perpustakaan.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Solaris559/perpustakaan/issues"
+  },
+  "homepage": "https://github.com/Solaris559/perpustakaan#readme",
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  }
+}

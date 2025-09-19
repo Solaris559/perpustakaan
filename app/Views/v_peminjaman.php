@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="no_anggota" class="form-label">Nomor Anggota</label>
-                                            <input type="number" class="form-control" id="no_anggota" name="no_anggota"
+                                            <input type="text" class="form-control" id="no_anggota" name="no_anggota"
                                                 readonly>
                                         </div>
                                         <div class="mb-3">

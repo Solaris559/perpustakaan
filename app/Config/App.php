@@ -16,10 +16,10 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    // public string $baseURL = 'https://localhost/ci4/';
+    // public string $baseURL = 'https://localhost/perpus/';
 
     // test pakai ngrok
-    public string $baseURL = 'https://17b13d26c850.ngrok-free.app/ci4/';
+    public string $baseURL = 'https://17b13d26c850.ngrok-free.app/perpus/';
 
     // test di hp
     // public string $baseURL = 'https://192.168.119.3/ci4/public/';
